@@ -85,7 +85,17 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Emily',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `test `,
+
+    secondParagraph: `test `,
+
+    thirdParagraph: `test`
   }
+
 ];
 
 /* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
@@ -113,7 +123,58 @@ const data = [
 */
 
 
-const articleMaker = ()=>{
+const articleMaker = (objNum)=>{
   ///created elements///////
+  const articleDiv = document.createElement('div');
+  const articleH2 = document.createElement('h2');
+  const articlePDate = document.createElement('p');
+  const articleP1 = document.createElement('p');
+  const articleP2 = document.createElement('p');
+  const articleP3 = document.createElement('p');
+  const articleBttn = document.createElement('span');
 
+
+  ///element class Names////
+  articleDiv.classList.add('article')
+  articlePDate.classList.add('date')
+  articleBttn.classList.add('expandButton')
+
+
+  ///element nesting////////
+  articleDiv.appendChild(articleH2)
+  articleDiv.appendChild(articlePDate)
+  articleDiv.appendChild(articleP1)
+  articleDiv.appendChild(articleP2)
+  articleDiv.appendChild(articleP3)
+  articleDiv.appendChild(articleBttn)
+
+
+  ///element content////////
+  articleH2.textContent = data[objNum].title;
+  articlePDate.textContent = data[objNum].date
+  articleP1.textContent = data[objNum].firstParagraph;
+  articleP2.textContent = data[objNum].secondParagraph;
+  articleP3.textContent = data[objNum].thirdParagraph;
+
+
+  ///event listeners/////////
+  articleBttn.addEventListener('click', ()=>{
+    if(articleDiv.classList.contains('article-open') === false){
+      articleDiv.classList.add('article-open')
+    }else{
+      articleDiv.classList.remove('article-open')
+    }
+  })
+
+  return articleDiv;
 }
+
+
+////loop and append///////
+let articles = document.querySelector('.articles');
+
+for(let i = 0; i < data.length; i++){
+  let articleAdder = articleMaker(i);
+  articles.appendChild(articleAdder);
+}
+
